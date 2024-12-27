@@ -19,8 +19,16 @@ export class NoteListComponent {
   favFilter: "all" | "fav" = "all";
   status: "notes" | "trash" = "notes";
 
-  constructor(public noteService: NoteListService) {
-    this.noteList = this.getDummyData()
+  constructor(private noteService: NoteListService) {
+    // this.noteList = this.getDummyData()
+  }
+
+  getList(type: string): Note[] {
+    if(type == "trash"){
+      return this.noteService.trashNotes;
+    } else {
+      return this.noteService.normalNotes;
+    }
   }
 
   changeFavFilter(filter:"all" | "fav"){
@@ -39,43 +47,43 @@ export class NoteListComponent {
 
 
 
-  getDummyData(): Note[] {
-    return [
-      {
-        id: "21sasd561dd4sdf",
-        type: "note",
-        title: "Block, Inline, and Inline-Block",
-        content: "https://www.youtube.com/watch?v=x_i2gga-sYg",
-        marked: true,
-      },
-      {
-        id: "25sd4f561w54sdf",
-        type: "note",
-        title: "css selector",
-        content: `kind p > b   (direktes kind) 
-        nachfahren p b  (alle nachfahren)
-        geschwister p ~ b (auf gleicher ebene ist VOR dem p ein b)`,
-        marked: true,
-      },
-      {
-        id: "54a4s6d546ff",
-        type: "note",
-        title: "aufräumen",
-        content: "Wohnzimmer saugen",
-        marked: false,
-      },
-      {
-        id: "2a35s4d654a6s4d",
-        type: "note",
-        title: "links",
-        content: `Reihenfolge: a:visited 
-        a:focus 
-        a:hover 
-        a:active
-        merkspruch: LoVe HAte`,
-        marked: true,
-      }
-    ];
-  }
+  // getDummyData(): Note[] {
+  //   return [
+  //     {
+  //       id: "21sasd561dd4sdf",
+  //       type: "note",
+  //       title: "Block, Inline, and Inline-Block",
+  //       content: "https://www.youtube.com/watch?v=x_i2gga-sYg",
+  //       marked: true,
+  //     },
+  //     {
+  //       id: "25sd4f561w54sdf",
+  //       type: "note",
+  //       title: "css selector",
+  //       content: `kind p > b   (direktes kind) 
+  //       nachfahren p b  (alle nachfahren)
+  //       geschwister p ~ b (auf gleicher ebene ist VOR dem p ein b)`,
+  //       marked: true,
+  //     },
+  //     {
+  //       id: "54a4s6d546ff",
+  //       type: "note",
+  //       title: "aufräumen",
+  //       content: "Wohnzimmer saugen",
+  //       marked: false,
+  //     },
+  //     {
+  //       id: "2a35s4d654a6s4d",
+  //       type: "note",
+  //       title: "links",
+  //       content: `Reihenfolge: a:visited 
+  //       a:focus 
+  //       a:hover 
+  //       a:active
+  //       merkspruch: LoVe HAte`,
+  //       marked: true,
+  //     }
+  //   ];
+  // }
 
 }

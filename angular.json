@@ -94,6 +94,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "danotes:build:production",
+              "serveTarget": "danotes:serve:production"
+            },
+            "development": {
+              "buildTarget": "danotes:build:development",
+              "serveTarget": "danotes:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
