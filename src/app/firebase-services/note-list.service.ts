@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Note } from '../interfaces/note.interface';
-import { collection, collectionData, doc, addDoc, updateDoc, onSnapshot, Firestore } from '@angular/fire/firestore';
+import { collection, collectionData, doc, addDoc, updateDoc, deleteDoc, onSnapshot, Firestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,16 @@ export class NoteListService {
     this.unsubTrash = this.subTrashList();
   }
 
-  async addNote(item: Note) {  //addDoc ist ein Promise
-    await addDoc(this.getNotesRef(), item)
-    .catch((err) => { console.log(err); })
-    .then((docRef) => { console.log('Doc added with ID: ', docRef?.id); });
+  async addNote(item: Note, colId: 'notes' | 'trash') {  //addDoc ist ein Promise
+    if( colId === 'notes') { 
+      await addDoc(this.getNotesRef(), item)
+      .catch((err) => { console.log(err); });
+    }
+    else if (colId === 'trash') {
+      await addDoc(this.getTrashRef(), item)
+      .catch((err) => { console.log(err); });
+    }
+    // .then((docRef) => { console.log('Doc added with ID: ', docRef?.id); });
   }
 
   async updateNote(item: Note) {
@@ -31,8 +37,14 @@ export class NoteListService {
       let colRef = this.getSingleDocRef(this.getColIdFromNoteType(item), item.id);
       await updateDoc(colRef, this.getCleanJson(item))
       .catch((err) => { console.log(err); })
-      .then(() => { console.log('Doc updated with ID: ', item.id); });
+      // .then(() => { console.log('Doc updated with ID: ', item.id); });
     }
+  }
+  
+  async deleteNote(colId: 'notes' | 'trash', docId: string) {
+    await deleteDoc(this.getSingleDocRef(colId, docId))
+    .catch((err) => { console.log(err); })
+    // .then(() => { console.log('Doc deleted with ID: ', docId); });
   }
 
   getColIdFromNoteType(note: Note) {

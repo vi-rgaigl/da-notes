@@ -23,8 +23,8 @@ export class NoteListComponent {
     // this.noteList = this.getDummyData()
   }
 
-  getList(type: string): Note[] {
-    if(type == "trash"){
+  getList(): Note[] {
+    if(this.status == "trash"){
       return this.noteService.trashNotes;
     } else {
       return this.noteService.normalNotes;
@@ -36,6 +36,7 @@ export class NoteListComponent {
   }
 
   changeTrashStatus(){
+
     if(this.status == "trash"){
       this.status = "notes";
     } else {

@@ -132,16 +132,8 @@
             </button>
         </div>
     </div>
-    <div>
-        <!-- <ul>
-            @for (note of (this.noteService.normalNodes | async); track note) {
-                <li>
-                    {{ note['title'] }}
-                </li>
-            }
-        </ul> -->
-        
-        @for (note of getList('notes'); track note) {
+    <div>       
+        @for (note of getList(); track note) {
             <app-note [note]="note"></app-note>
         }
     </div>
